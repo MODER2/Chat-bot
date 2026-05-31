@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ╔══════════════════════════════════════════════════════════════════════════╗
+  ║  pom.xml — главный конфигурационный файл сборщика проекта Apache Maven.     ║
+  ║                                                                            ║
+  ║  Зачем он нужен:                                                           ║
+  ║   • описывает «координаты» проекта (groupId / artifactId / version);       ║
+  ║   • перечисляет ЗАВИСИМОСТИ (библиотеки), которые Maven сам скачает         ║
+  ║     из интернета (репозиторий Maven Central) — нам не нужно вручную        ║
+  ║     класть .jar-файлы JavaFX в проект;                                     ║
+  ║   • настраивает плагины: компиляцию Java и запуск JavaFX-приложения.       ║
+  ║                                                                            ║
+  ║  Запуск приложения из терминала:   mvn clean javafx:run                    ║
+  ║  Только компиляция (проверка):     mvn clean compile                       ║
+  ╚══════════════════════════════════════════════════════════════════════════╝
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- Версия модели POM. Для Maven 3.x всегда 4.0.0 — это не версия нашего проекта. -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ===== Координаты проекта ===== -->
+    <!-- groupId — «обратное доменное имя» организации/автора. -->
+    <groupId>com.example</groupId>
+    <!-- artifactId — имя самого артефакта (проекта). -->
+    <artifactId>chatbot</artifactId>
+    <!-- version — версия нашего приложения. SNAPSHOT = «в разработке». -->
+    <version>1.0.0</version>
+    <!-- Тип упаковки: jar (обычный java-архив). -->
+    <packaging>jar</packaging>
+
+    <name>JavaFX Chat-Bot</name>
+    <description>Учебный чат-бот на JavaFX: обработка текста, регулярные выражения, история сообщений</description>
+
+    <!-- ===== Глобальные свойства проекта ===== -->
+    <properties>
+        <!-- Кодировка исходников — UTF-8, чтобы русские комментарии не «ломались». -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Версия Java. 17 — LTS-версия, совместима с JavaFX 17+. -->
+        <maven.compiler.release>17</maven.compiler.release>
+        <!-- Версия JavaFX. 17.0.6 — стабильная LTS. -->
+        <javafx.version>17.0.6</javafx.version>
+        <!-- Главный класс приложения (точка входа). -->
+        <main.class>com.example.chatbot.ui.ChatApplication</main.class>
+    </properties>
+
+    <!-- ===== Зависимости (внешние библиотеки) ===== -->
+    <dependencies>
+        <!-- javafx-controls — кнопки, поля ввода, списки и т.п. (виджеты GUI). -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <!-- javafx-graphics — базовая графика, окна (Stage), сцены (Scene), картинки. -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+    </dependencies>
+
+    <!-- ===== Плагины сборки ===== -->
+    <build>
+        <plugins>
+            <!-- Плагин компиляции Java-кода. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                    <!-- Сохраняем имена параметров методов (удобно для отладки). -->
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+
+            <!-- Плагин для запуска JavaFX-приложения командой `mvn javafx:run`.
+                 Он сам подставляет модули JavaFX в module-path при запуске. -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
