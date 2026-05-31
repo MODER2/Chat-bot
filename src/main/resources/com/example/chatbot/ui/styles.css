@@ -1,0 +1,89 @@
+/*
+ * styles.css — таблица стилей JavaFX (аналог CSS из веба).
+ *
+ * Здесь задаём ШРИФТ и ЦВЕТОВУЮ ПАЛИТРУ, отличные от стандартных, — это
+ * требование к GUI. JavaFX поддерживает подмножество CSS; селекторы начинаются
+ * с точки и имени класса JavaFX (например, .button, .text-field).
+ *
+ * Палитра (фиолетово-индиговая тема):
+ *   фон окна      — #2D2A45 (тёмный сине-фиолетовый)
+ *   панель        — #3A3658
+ *   акцент        — #6C5CE7 (индиго)
+ *   текст         — #F2F0FF (почти белый)
+ *   пузырь бота   — #4834A6
+ */
+
+/* Корневой контейнер: общий фон и базовый шрифт для всего приложения. */
+.root {
+    -fx-background-color: #2D2A45;
+    -fx-font-family: "Verdana", "Segoe UI", sans-serif; /* шрифт, отличный от системного по умолчанию */
+    -fx-font-size: 14px;
+}
+
+/* Заголовок над чатом. */
+.header-label {
+    -fx-text-fill: #F2F0FF;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 14 10 14;
+    -fx-background-color: #6C5CE7;
+}
+
+/* Список сообщений. */
+.list-view {
+    -fx-background-color: #2D2A45;
+    -fx-background-insets: 0;
+    -fx-padding: 6;
+}
+
+/* Ячейки списка делаем «прозрачными», т.к. рисуем свои «пузыри» внутри. */
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 4 8 4 8;
+}
+
+/* Поле ввода сообщения. */
+.text-area, .text-field {
+    -fx-control-inner-background: #3A3658;
+    -fx-text-fill: #F2F0FF;
+    -fx-highlight-fill: #6C5CE7;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #6C5CE7;
+}
+
+/* Кнопка «Отправить». */
+.send-button {
+    -fx-background-color: #6C5CE7;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 8 18 8 18;
+    -fx-cursor: hand;
+}
+.send-button:hover {
+    -fx-background-color: #8273F0; /* светлее при наведении */
+}
+
+/* «Пузырь» сообщения пользователя (выравнивание справа). */
+.bubble-user {
+    -fx-background-color: #6C5CE7;
+    -fx-text-fill: white;
+    -fx-background-radius: 14 14 2 14;
+    -fx-padding: 8 12 8 12;
+}
+
+/* «Пузырь» сообщения бота (выравнивание слева). */
+.bubble-bot {
+    -fx-background-color: #4834A6;
+    -fx-text-fill: #F2F0FF;
+    -fx-background-radius: 14 14 14 2;
+    -fx-padding: 8 12 8 12;
+}
+
+/* Подпись со временем и автором под пузырём. */
+.meta-label {
+    -fx-text-fill: #B9B4D6;
+    -fx-font-size: 11px;
+}
